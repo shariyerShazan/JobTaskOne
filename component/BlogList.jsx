@@ -1,56 +1,125 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import blogData from "../Assets/data";
 import BlogItem from "./BlogItem";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 const BlogList = () => {
   const [menu, setMenu] = useState("All");
   const [categories, setCategories] = useState([]);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+  const scrollRef = useRef(null);
 
   useEffect(() => {
-    // unique categories বের করা
     const uniqueCategories = [...new Set(blogData.map((item) => item.category))];
     setCategories(uniqueCategories);
   }, []);
 
-  // filter করা data
   const filteredBlogs =
     menu === "All"
       ? blogData
       : blogData.filter((item) => item.category === menu);
 
+  // Check scroll availability
+  const checkForScrollPosition = () => {
+    if (scrollRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+      setCanScrollLeft(scrollLeft > 0);
+      setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 1);
+    }
+  };
+
+  useEffect(() => {
+    checkForScrollPosition();
+    const el = scrollRef.current;
+    if (el) {
+      el.addEventListener("scroll", checkForScrollPosition);
+    }
+    return () => {
+      if (el) {
+        el.removeEventListener("scroll", checkForScrollPosition);
+      }
+    };
+  }, []);
+
+  // Scroll functions
+  const scrollLeft = () => {
+    scrollRef.current.scrollBy({ left: -200, behavior: "smooth" });
+  };
+
+  const scrollRight = () => {
+    scrollRef.current.scrollBy({ left: 200, behavior: "smooth" });
+  };
+
   return (
     <div>
-      {/* Dynamic Category Buttons */}
-      <div className="flex justify-center gap-6 my-10 flex-wrap">
-        <button
-          onClick={() => setMenu("All")}
-          className={`${
-            menu === "All"
-              ? "bg-black text-white px-4 py-1 rounded-sm"
-              : "px-4 py-1"
-          } cursor-pointer`}
-        >
-          All
-        </button>
-
-        {categories.map((cat, index) => (
+      {/* Category Buttons with Scroll */}
+      <div className="flex items-center justify-center my-10 w-[90%] mx-auto">
+        {/* Left Arrow */}
+        {categories.length > 10 && (
           <button
-            key={index}
-            onClick={() => setMenu(cat)}
+            onClick={scrollLeft}
+            disabled={!canScrollLeft}
+            className={`mr-2 p-2 rounded-full shadow-md ${
+              canScrollLeft
+                ? "bg-gray-200 hover:bg-gray-300"
+                : "bg-gray-100 text-gray-400 cursor-not-allowed"
+            }`}
+          >
+            <IoIosArrowBack size={20} />
+          </button>
+        )}
+
+        {/* Scrollable Category Buttons */}
+        <div
+          ref={scrollRef}
+          className="flex gap-4 overflow-x-auto scrollbar-hide px-2"
+        >
+          <button
+            onClick={() => setMenu("All")}
             className={`${
-              menu === cat
+              menu === "All"
                 ? "bg-black text-white px-4 py-1 rounded-sm"
                 : "px-4 py-1"
-            } cursor-pointer`}
+            } cursor-pointer flex-shrink-0`}
           >
-            {cat}
+            All
           </button>
-        ))}
+
+          {categories.map((cat, index) => (
+            <button
+              key={index}
+              onClick={() => setMenu(cat)}
+              className={`${
+                menu === cat
+                  ? "bg-black text-white px-4 py-1 rounded-sm"
+                  : "px-4 py-1"
+              } cursor-pointer flex-shrink-0`}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+
+        {/* Right Arrow */}
+        {categories.length > 10 && (
+          <button
+            onClick={scrollRight}
+            disabled={!canScrollRight}
+            className={`ml-2 p-2 rounded-full shadow-md ${
+              canScrollRight
+                ? "bg-gray-200 hover:bg-gray-300"
+                : "bg-gray-100 text-gray-400 cursor-not-allowed"
+            }`}
+          >
+            <IoIosArrowForward size={20} />
+          </button>
+        )}
       </div>
 
       {/* Blog List */}
       <div className="flex flex-wrap justify-around gap-1 gap-y-10 mb-16 xl mx-24">
-        {filteredBlogs.map((item) => (
+        {filteredBlogs.map((item ) => (
           <BlogItem key={item.id} item={item} />
         ))}
       </div>
