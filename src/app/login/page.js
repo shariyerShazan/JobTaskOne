@@ -35,39 +35,50 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <ToastContainer />
-      <div className="bg-white p-10 rounded-xl shadow-lg w-[90%] max-w-md">
-        <h1 className="text-3xl font-bold mb-6 text-center">Login to Blog</h1>
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+    <ToastContainer />
+    <div className="bg-white p-10 rounded-xl shadow-lg w-[90%] max-w-md">
+      <h1 className="text-3xl font-bold mb-6 text-center">Login to Blog</h1>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        
+        <div className="flex flex-col gap-1">
+          <label htmlFor="email" className="text-sm font-medium text-gray-700">Email Address</label>
           <input
+            id="email"
             type="email"
-            placeholder="Email"
+            placeholder="Enter your email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="border p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
+        </div>
+  
+        <div className="flex flex-col gap-1">
+          <label htmlFor="password" className="text-sm font-medium text-gray-700">Password</label>
           <input
+            id="password"
             type="password"
-            placeholder="Password"
+            placeholder="Enter your password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="border p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          <button
-            type="submit"
-            className="bg-blue-600 text-white py-3 rounded-md hover:bg-blue-700 transition-colors"
-            disabled={loading}
-          >
-            {loading ? "Logging in..." : "Login"}
-          </button>
-        </form>
-        <p className="mt-4 text-sm text-center text-gray-600">
-          {"Don't have an account?  "}
-          <Link href="/register" className="text-blue-600 font-medium hover:underline">
-            Register
-          </Link>
-        </p>
-      </div>
+        </div>
+  
+        <button
+          type="submit"
+          className="bg-blue-600 text-white py-3 rounded-md hover:bg-blue-700 transition-colors"
+          disabled={loading}
+        >
+          {loading ? "Logging in..." : "Login"}
+        </button>
+      </form>
+  
+      <p className="mt-4 text-sm text-center text-gray-600">
+        {"Don't have an account? "}
+        <Link href="/register" className="text-blue-600 font-medium hover:underline">Register</Link>
+      </p>
     </div>
+  </div>
+  
   );
 }
