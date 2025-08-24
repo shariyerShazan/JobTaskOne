@@ -22,7 +22,7 @@ export const authOptions = {
         const isPasswordValid = await bcrypt.compare(credentials.password, user.password);
         if (!isPasswordValid) throw new Error("Incorrect password");
 
-        return { id: user._id, name: user.name, email: user.email };
+        return { user };
       },
     }),
   ],
