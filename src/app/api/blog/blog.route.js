@@ -14,9 +14,14 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET,
   });
 
-export async function GET(request){
-    return NextResponse.json()
-}
+export async function GET() {
+    try {
+      const blogs = await Blog.find();
+      return NextResponse.json(blogs, { status: 200 });
+    } catch (error) {
+      return NextResponse.json({ error: "Failed to fetch blogs" }, { status: 500 });
+    }
+  }
 
 export async function POST(req) {
     try {
@@ -46,8 +51,9 @@ export async function POST(req) {
         image : `${result.secure_url}`,
         authorImage : `${formData.get("authorImage")}`
       }
-  
       await Blog.create(blogData)
+      return NextResponse.json({success: true , message : "Blog added"})
+  
     } catch (error) {
       console.error("Upload error:", error);
       return NextResponse.json({ error: "Upload failed" }, { status: 500 });
