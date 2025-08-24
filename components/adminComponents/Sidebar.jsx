@@ -41,10 +41,10 @@ const Sidebar = () => {
             <MdOutlineArticle size={20} /> <p>Blog List</p>
           </Link>
 
-          {/* Subscription */}
+          {/* Subscription
           <Link href="/admin/subscription" className={linkClass("/admin/subscription")}>
             <IoMdMailUnread size={20} /> <p>Subscription</p>
-          </Link>
+          </Link> */}
         </div>
       </div>
     </div>

@@ -39,7 +39,7 @@ export async function POST(req) {
 export async function GET() {
   try {
     await connectDB(); // connect DB per request
-    const blogs = await Blog.find();
+    const blogs = await Blog.find({}, "title description image category author authorImage");
     return NextResponse.json({success: true, blogs });
   } catch (error) {
     console.error("API GET Error:", error);

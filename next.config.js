@@ -9,6 +9,10 @@ const nextConfig = {
         {
           protocol: "https",
           hostname: "i.pravatar.cc"
+        },
+        {
+          protocol: "https",
+          hostname: "encrypted-tbn0.gstatic.com"
         }
       ]
     }

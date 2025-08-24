@@ -5,28 +5,22 @@ import React, { useState, useEffect } from 'react';
 import { IoMdArrowForward } from "react-icons/io";
 
 const BlogItem = ({ item }) => {
-  const { _id, image, category, title, description, date } = item;
+  const { _id, image, category, title, description} = item;
 
   // Client-side formatted date
   const [formattedDate, setFormattedDate] = useState("");
-
-  useEffect(() => {
-    if (date) {
-      setFormattedDate(new Date(date).toLocaleDateString());
-    }
-  }, [date]);
 
   return (
     <div className='max-w-[330px] sm:max-w-[300px] bg-white border border-black hover:shadow-[-7px_7px_0px_#000] transition-all duration-500'>
       
       <Link href={`/blog/${_id}`}>
-        <Image
-          src={image}
-          alt={title || "blog image"}
-          width={400}
-          height={400}
-          className='border-b h-42 border-black'
-        />
+      <Image
+  src={image}
+  alt={title || "blog image"}
+  width={400}
+  height={400}
+  className='border-b border-black h-[168px] object-cover' 
+/>
       </Link>
 
       <p className='ml-5 mt-5 px-1 inline-block bg-black text-white text-sm'>

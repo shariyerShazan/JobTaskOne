@@ -10,7 +10,6 @@ const Header = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    // localStorage থেকে user load করা
     const storedUser = localStorage.getItem("user");
     if (storedUser) setUser(JSON.parse(storedUser));
   }, []);
@@ -18,18 +17,18 @@ const Header = () => {
   const handleLogout = () => {
     localStorage.removeItem("user");
     setUser(null);
-    router.push("/"); // logout হলে home page এ redirect
+    router.push("/");
   };
 
   return (
     <div className='px-5 md:-x-12 lg:px-24 '>
       <div className='flex justify-between items-center py-4'>
-        <Image src={blog} width={100} alt='' className='scale-175 w-[80px] sm:w-auto bg-transparent object-cover object-bottom'/>
+        <Image src={blog} width={100}  height={80} alt='' className='scale-175 w-[80px] sm:w-auto bg-transparent object-cover object-bottom'/>
         
         <div className='flex gap-4'>
           {user ? (
             <>
-              <Link href="/dashboard" className="flex cursor-pointer items-center gap-2 font-medium py-1 px-3 sm:py-3 sm:px-6 border-black border-1 shadow-[-7px_7px_0px_#000]">
+              <Link href="/admin" className="flex cursor-pointer items-center gap-2 font-medium py-1 px-3 sm:py-3 sm:px-6 border-black border-1 shadow-[-7px_7px_0px_#000]">
                 Dashboard
               </Link>
               <button

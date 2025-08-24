@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import { NextResponse } from "next/server";
-import { User } from "../../../../../lib/models/user.mode";
+import { User } from "../../../../../lib/models/user.model";
 import connectDB from "../../../../../lib/config/db";
 
 export async function POST(req) {

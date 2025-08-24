@@ -18,14 +18,25 @@ export default function AddProductPage() {
       return;
     }
   
+
+    const storedUser = localStorage.getItem("user");
+    let author = "";
+    let authorImage = "";
+  
+    if (storedUser) {
+      const user = JSON.parse(storedUser);
+      author = user.name || "-";
+      authorImage = user.profilePicture || "-";
+    }
+  
     try {
       const res = await axios.post("/api/blog", {
         title,
         description,
         category,
-        author: " ",
-        authorImage: " ",
-        image : imageURL, 
+        author,
+        authorImage,
+        image: imageURL,
       });
   
       if (res.data.success) {
