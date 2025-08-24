@@ -4,7 +4,7 @@ import blogData from '../../../../Assets/data'
 import { useParams } from 'next/navigation'
 import blog from "../../../../public/blog.avif"
 import Image from 'next/image'
-import Footer from '../../../../component/Footer'
+import Footer from '../../../../components/Footer'
 import Link from 'next/link'
 
 const page = () => {

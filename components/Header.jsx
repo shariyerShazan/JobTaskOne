@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import React from 'react'
 import blog from "../public/blog.avif"
+
 const Header = () => {
   return (
     <div className='px-5 md:-x-12 lg:px-24 '>
