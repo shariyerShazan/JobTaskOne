@@ -1,9 +1,25 @@
+"use client"
 import React, { useState, useEffect, useRef } from "react";
-import blogData from "../Assets/data";
 import BlogItem from "./BlogItem";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import axios from "axios";
 
 const BlogList = () => {
+  const [ blogData ,setBlogData] = useState([])
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get("/api/blog"); 
+       if(res.data.success){
+         setBlogData(res.data.blogs)
+       }; 
+      } catch (error) {
+        console.error("Error fetching blogs:", error);
+      }
+    };
+    fetchData();
+  }, []);
+  
   const [menu, setMenu] = useState("All");
   const [categories, setCategories] = useState([]);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -11,9 +27,11 @@ const BlogList = () => {
   const scrollRef = useRef(null);
 
   useEffect(() => {
-    const uniqueCategories = [...new Set(blogData.map((item) => item.category))];
-    setCategories(uniqueCategories);
-  }, []);
+    if (blogData.length > 0) {
+      const uniqueCategories = [...new Set(blogData.map((item) => item.category))];
+      setCategories(uniqueCategories);
+    }
+  }, [blogData]);
 
   const filteredBlogs =
     menu === "All"
@@ -119,8 +137,8 @@ const BlogList = () => {
 
       {/* Blog List */}
       <div className="flex flex-wrap justify-around gap-1 gap-y-10 mb-16 xl mx-24">
-        {filteredBlogs.map((item ) => (
-          <BlogItem key={item.id} item={item} />
+        {filteredBlogs && filteredBlogs?.map((item ) => (
+          <BlogItem key={item._id} item={item} />
         ))}
       </div>
     </div>

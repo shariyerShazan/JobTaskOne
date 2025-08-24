@@ -23,8 +23,8 @@ export default function AddProductPage() {
         title,
         description,
         category,
-        author: "",
-        authorImage: "",
+        author: " ",
+        authorImage: " ",
         image : imageURL, 
       });
   
@@ -46,7 +46,7 @@ export default function AddProductPage() {
   
 
   return (
-    <div className="flex items-start gap-4 mt-22 px-4 md:px-12">
+    <div className="flex  items-start gap-4 mt-28 px-4 md:px-12">
       <ToastContainer />
       <div className="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6 md:p-10">
         <h1 className="text-3xl font-bold mb-6 text-gray-800">Add Product / Blog</h1>
