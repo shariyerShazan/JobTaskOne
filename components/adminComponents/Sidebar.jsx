@@ -20,12 +20,15 @@ const Sidebar = () => {
     <div className="flex flex-col bg-gray-100">
       {/* Logo section */}
       <div className="px-2 sm:pl-14 py-3 border border-black">
-        <Image
-          src={blog}
-          width={100}
-          alt="Logo"
-          className="scale-175 w-[80px] sm:w-auto object-cover object-bottom"
-        />
+      <Link href={"/"}>
+              <Image
+                src={blog}
+                width={100}
+                height={80}
+                alt="Logo"
+                className="scale-175 mix-blend-multiply w-[80px] sm:w-auto object-cover object-bottom bg-transparent"
+              />
+            </Link>
       </div>
 
       {/* Menu section */}

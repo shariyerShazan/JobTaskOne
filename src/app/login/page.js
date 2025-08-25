@@ -8,7 +8,7 @@ import Link from "next/link";
 
 export default function LoginPage() {
   const router = useRouter();
-  const { data: session } = useSession(); // session theke user nibo
+  const { data: session } = useSession(); 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
