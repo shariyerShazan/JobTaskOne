@@ -4,16 +4,21 @@ import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 
 export default function SessionSync() {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
 
   useEffect(() => {
-    if (session?.user) {
-      const { id, name, email, profilePicture } = session.user;
-      localStorage.setItem("user", JSON.stringify({ id, name, email, profilePicture }));
+    if (status === "loading") return;
+
+    if (status === "authenticated" && session?.user) {
+      const { id, name, email, image } = session.user;
+      localStorage.setItem(
+        "user",
+        JSON.stringify({ id, name, email, profilePicture: image })
+      );
     } else {
       localStorage.removeItem("user");
     }
-  }, [session]);
+  }, [session, status]);
 
   return null;
 }
